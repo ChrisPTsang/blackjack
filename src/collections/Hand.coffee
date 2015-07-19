@@ -38,7 +38,7 @@ class window.Hand extends Backbone.Collection
   # This checks dealer's score based on minScore and minScore + Ace
   # It returns whatever score hasn't busted the dealer.
   getScore: ->
-    if @scores()[1] > 21
+    if @scores()[1] >= 21
       @scores()[0]
     else
       @scores()[1]

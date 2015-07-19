@@ -16,30 +16,32 @@ class window.AppView extends Backbone.View
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> 
       @$('.stand-button').prop 'disabled', true
-      while @model.get('dealerHand').getScore() < 17
-        @model.get('dealerHand').dealerMove()
+      @$('.hit-button').prop 'disabled', true
+      while @model.get('dealerHand').getScore() < 17 
+        @model.get('dealerHand').dealerMove() 
     'click .new-game': -> @resetHands()
 
 
   initialize: ->
+    $('.game-results').css 'display', 'none'
     @model.get('playerHand').on 'endgame', =>
       @$('.hit-button').prop "disabled", "true"
       @$('.stand-button').prop "disabled", "true"
-      $('.game-results').text @model.compareScores()
-      $('.game-results').css 'display' 'block'
+      @$('.game-results').text @model.compareScores()
+      @$('.game-results').css 'display', 'block'
     @model.get('dealerHand').on 'endgame', =>
       @$('.stand-button').prop "disabled", "true"
-      $('.game-results').text @model.compareScores()
-      $('.game-results').css 'display' 'block'
+      @$('.game-results').text @model.compareScores()
+      @$('.game-results').css 'display', 'block'
     @model.get('playerHand').on 'blackjack', =>
       @$('.player-hand-container .score').text '21!'
     @model.get('playerHand').on 'busted', =>
       console.log('player busted!')
       console.log(@$('#playerscore').text())
-      $('#playerscore').text 'BUSTED!'
+      @$('#playerscore').text 'BUSTED!'
       @$('#dealerscore').text 'WINS!'
     @model.get('dealerHand').on 'blackjack', =>
-      @$('.dealer-hand-container .score').text 'BLACKJACK!'
+      @$('.dealer-hand-container .score').text '21!'
     @model.get('dealerHand').on 'busted', =>
       @$('.dealer-hand-container .score').text 'BUSTED!'
     @render()

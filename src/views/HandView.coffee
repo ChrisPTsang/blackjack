@@ -8,7 +8,7 @@ class window.HandView extends Backbone.View
     @collection.on 'add remove change', => 
       @render()
       @collection.checkscore()
-
+    
     @render()
     @collection.checkscore()
 

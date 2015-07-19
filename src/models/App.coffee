@@ -7,6 +7,12 @@ class window.App extends Backbone.Model
     @set 'dealerHand', deck.dealDealer()
 
   newDeal: ->
+    if @get('deck').length < 15
+      @set 'deck', deck = new Deck()
+      @set 'playerHand', deck.dealPlayer()
+      @set 'dealerHand', deck.dealDealer()
+      alert 'new deck'
+    console.log @get('deck').length
     @set 'playerHand', @get('deck').dealPlayer()
     @set 'dealerHand', @get('deck').dealDealer()
 
@@ -16,6 +22,6 @@ class window.App extends Backbone.Model
     else if @get('playerHand').getScore() <= 21 and @get('playerHand').getScore() > @get('dealerHand').getScore() 
      'YOU WIN!'
     else if @get('playerHand').getScore() == @get('dealerHand').getScore()
-     'push.'
+     'PUSH'
     else
      'YOU LOSE.....'
